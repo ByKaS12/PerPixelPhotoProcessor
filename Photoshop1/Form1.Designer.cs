@@ -49,15 +49,21 @@
             // 
             // mainPic
             // 
+            this.mainPic.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.mainPic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mainPic.Location = new System.Drawing.Point(12, 12);
             this.mainPic.Name = "mainPic";
             this.mainPic.Size = new System.Drawing.Size(758, 695);
-            this.mainPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.mainPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.mainPic.TabIndex = 1;
             this.mainPic.TabStop = false;
             // 
             // flowLayoutPanel1
             // 
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel1.Controls.Add(this.button2);
@@ -82,7 +88,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.mainPic)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

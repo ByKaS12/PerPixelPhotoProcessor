@@ -48,6 +48,7 @@ namespace Photoshop1
         static int FindHeight(List<ObjectAPI> pictures)
         {
             int h = pictures[0].Height;
+            
             for (int i = 0; i < pictures.Count(); i++)
             {
                 if (pictures[i].Height < h)

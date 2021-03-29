@@ -16,16 +16,16 @@ namespace Photoshop1
         public ImageControl()
         {
             InitializeComponent();
-            
-          //Pictures = new List<ObjectAPI>();
+
+            //Pictures = new List<ObjectAPI>();
         }
 
-       public List<ObjectAPI> Pictures;
-       public Bitmap image;
+        public List<ObjectAPI> Pictures;
+        public Bitmap image;
         public int ControlIndex;
         private void pictureBox1_Click(object sender, EventArgs e) //Add pictures from program
         {
-            
+
 
         }
 
@@ -37,7 +37,7 @@ namespace Photoshop1
                 case "Sum Pix":
                     {
                         var CollectControl = Form.ActiveForm.Controls.Find("ImageControl", true).ToList();
-                        
+
                         foreach (var item in CollectControl)
                         {
                             var img = item.Parent.Controls.Find("pictureBox1", true);
@@ -62,8 +62,8 @@ namespace Photoshop1
                         break;
 
 
-                    } 
-                   
+                    }
+
                 case "Composition Pix":
                     {
                         var FindPic = Form.ActiveForm.Controls.Find("mainPic", true);
@@ -148,13 +148,23 @@ namespace Photoshop1
         {
             int count = this.ControlIndex;
             Form1 form1 = Form.ActiveForm as Form1;
-            
+
             form1.Pictures.RemoveAt(count);
             form1.ControlIndex--;
             Dispose();
 
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form2 f2 = new Form2();
+            f2.f1 = (Form1)Form.ActiveForm;
+            Form.ActiveForm.Hide();
+            f2.pic = new ObjectAPI(this.pictureBox1.Image);
+            f2.pic.ToBlackWhite(f2.pic); 
+            f2.pictureBox1.Image = f2.pic.Show();
+            f2.ShowDialog();
 
+        }
     }
 }

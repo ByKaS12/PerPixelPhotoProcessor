@@ -19,12 +19,19 @@ namespace Photoshop1
         public byte G;
         public byte B;
     }
+    public struct RGB_Double
+    {
+        public double R;
+        public double G;
+        public double B;
+    }
     public struct RGB_int
     {
         public int R;
         public int G;
         public int B;
     }
+
     static class Math_Methods
     {
         public static T Clamp<T>(T val, T min, T max) where T : IComparable<T>
@@ -104,7 +111,7 @@ namespace Photoshop1
             {
                 for (int j = 0; j < mass[0].Width; j++)
                 {
-                    Color pix = Color.FromArgb(mass[0].matrix[j, i].R, mass[0].matrix[j, i].G, mass[0].matrix[j, i].B);
+                    Color pix = Color.FromArgb((int)mass[0].matrix[j, i].R, (int)mass[0].matrix[j, i].G, (int)mass[0].matrix[j, i].B);
                     ImgResult.SetPixel(j, i, pix);
 
                 }
@@ -148,7 +155,7 @@ namespace Photoshop1
             {
                 for (int j = 0; j < mass[0].Width; j++)
                 {
-                    Color pix = Color.FromArgb(mass[0].matrix[j, i].R, mass[0].matrix[j, i].G, mass[0].matrix[j, i].B);
+                    Color pix = Color.FromArgb((int)mass[0].matrix[j, i].R, (int)mass[0].matrix[j, i].G, (int)mass[0].matrix[j, i].B);
                     ImgResult.SetPixel(j, i, pix);
 
                 }
@@ -191,7 +198,7 @@ namespace Photoshop1
             {
                 for (int j = 0; j < mass[0].Width; j++)
                 {
-                    Color pix = Color.FromArgb(mass[0].matrix[j, i].R, mass[0].matrix[j, i].G, mass[0].matrix[j, i].B);
+                    Color pix = Color.FromArgb((int)mass[0].matrix[j, i].R, (int)mass[0].matrix[j, i].G, (int)mass[0].matrix[j, i].B);
                     ImgResult.SetPixel(j, i, pix);
 
                 }
@@ -241,7 +248,7 @@ namespace Photoshop1
             {
                 for (int j = 0; j < mass[0].Width; j++)
                 {
-                    Color pix = Color.FromArgb(mass[0].matrix[j, i].R, mass[0].matrix[j, i].G, mass[0].matrix[j, i].B);
+                    Color pix = Color.FromArgb((int)mass[0].matrix[j, i].R, (int)mass[0].matrix[j, i].G, (int)mass[0].matrix[j, i].B);
                     ImgResult.SetPixel(j, i, pix);
 
                 }
@@ -291,7 +298,7 @@ namespace Photoshop1
             {
                 for (int j = 0; j < mass[0].Width; j++)
                 {
-                    Color pix = Color.FromArgb(mass[0].matrix[j, i].R, mass[0].matrix[j, i].G, mass[0].matrix[j, i].B);
+                    Color pix = Color.FromArgb((int)mass[0].matrix[j, i].R, (int)mass[0].matrix[j, i].G, (int)mass[0].matrix[j, i].B);
                     ImgResult.SetPixel(j, i, pix);
 
                 }

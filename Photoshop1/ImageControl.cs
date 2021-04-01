@@ -157,11 +157,11 @@ namespace Photoshop1
 
         private void button2_Click(object sender, EventArgs e)
         {
+            int count = this.ControlIndex;
             Form2 f2 = new Form2();
             f2.f1 = (Form1)Form.ActiveForm;
             Form.ActiveForm.Hide();
-            f2.pic = new ObjectAPI(this.pictureBox1.Image);
-            f2.pic.ToBlackWhite(f2.pic); 
+            f2.pic = Pictures[count];
             f2.pictureBox1.Image = f2.pic.Show();
             f2.ShowDialog();
 

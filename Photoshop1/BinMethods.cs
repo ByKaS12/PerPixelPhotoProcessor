@@ -11,121 +11,170 @@ namespace Photoshop1
     {
         static public double ConvertMatrixNiblek(ObjectAPI pic, int a, int ii, int jj,double k)
         {
+            int x1 = jj - a;
+            int x2 = jj + a;
+            int y1 = ii - a;
+            int y2 = ii + a;
+            int S1 = 0;
+            int S2 = 0;
+            int S3 = 0;
+            int S4 = 0;
 
-            int[] copy = new int[(int)Math.Pow((2*a)+1,2)];
-            int ci = 0;
-            
-            for (int i = ii-a; i <= ii + a; i++)
-            {
-                for (int j = jj - a; j <= jj + a; j++)
-                {
-                    if (i >= 0 && j >= 0 && i < pic.Height && j < pic.Width)
-                        copy[ci] = pic.Rmatrix[j, i];
-                    else
-                        copy[ci] = -1;
-                    ci++;
-                }
-                
-            }
-            double Mx = 0;
-            double Mx2 = 0;
-            int iii = copy.Count();
-            
-            for (int i = 0; i < copy.Count(); i++)
-            {
-                if (copy[i] != -1)
-                {
-                    Mx += copy[i];
-                    Mx2 += copy[i] * copy[i];
-                }
-                else
-                    iii--;
-            }
-           //Mx = copy.Where(u => u != -1).Sum() / iii;
-            Mx /= iii;
-            Mx2 /= iii;
-            double D = Mx2 - Mx * Mx;
-            
+            if (x2 < pic.Width && y2 < pic.Height)
+                S1 = pic.RmatrixSum[x2, y2];
+            if (x1 - 1 >= 0 && y1 - 1 >= 0)
+                S2 = pic.RmatrixSum[x1 - 1, y1 - 1];
+            if (x1 - 1 >= 0 && y2 < pic.Height)
+                S3 = pic.RmatrixSum[x1 - 1, y2];
+            if (x2 < pic.Width && y1 - 1 >= 0)
+                S4 = pic.RmatrixSum[x2, y1 - 1];
+
+            int SS1 = 0;
+            int SS2 = 0;
+            int SS3 = 0;
+            int SS4 = 0;
+            if (x2 < pic.Width && y2 < pic.Height)
+                SS1 = pic.RmatrixMulti[x2, y2];
+            if (x1 - 1 >= 0 && y1 - 1 >= 0)
+                SS2 = pic.RmatrixMulti[x1 - 1, y1 - 1];
+            if (x1 - 1 >= 0 && y2 < pic.Height)
+                SS3 = pic.RmatrixMulti[x1 - 1, y2];
+            if (x2 < pic.Width && y1 - 1 >= 0)
+                SS4 = pic.RmatrixMulti[x2, y1 - 1];
+
+            var Mx  = S1 + S2 - S3 - S4;
+            var Mx2 = SS1 + SS2 - SS3 - SS4;
+
+            int Size = (int)Math.Pow((2 * a) + 1, 2);
+            Mx /= Size;
+            Mx2 /= Size;
+            double D = Mx2 - (Mx * Mx);
             var sigma = Math.Sqrt(D);
-            var t = Mx + k * sigma;
+            var t = Mx + (k * sigma);
             
             return t;
+        }
+        static public double[] ConvertMatrixBredly(ObjectAPI pic, int a, int ii, int jj)
+        {
+
+            int Size = (int)Math.Pow((2 * a) + 1, 2);
+            int S1 = 0;
+            int S2 = 0;
+            int S3 = 0;
+            int S4 = 0;
+            int x1 = jj-a;
+            int x2 = jj+a;
+            int y1 = ii-a;
+            int y2 =ii+a;
+            if (x2 < pic.Width && y2 < pic.Height)
+                S1 = pic.RmatrixSum[x2, y2];
+            if (x1 - 1 >= 0 && y1 - 1 >= 0)
+                S2 = pic.RmatrixSum[x1 - 1, y1 - 1];
+            if (x1 - 1 >= 0 && y2 < pic.Height)
+                S3 = pic.RmatrixSum[x1 - 1, y2];
+            if (x2 < pic.Width && y1 - 1 >= 0)
+               S4 = pic.RmatrixSum[x2, y1 - 1];
+            if (x1 < 0)
+                x1 = 0;
+            if (x2 >= pic.Width)
+                x2 = pic.Width - 1;
+            if (y1 < 0)
+                y1 = 0;
+            if (y2 >= pic.Height)
+                y2 = pic.Height - 1;
+
+            var sum = S1 + S2 - S3 - S4;
+
+            double[] result = new double[2];
+            result[0] = sum;
+            result[1] = Size;
+            return result;
         }
         static public double ConvertMatrixSayvol(ObjectAPI pic, int a, int ii, int jj, double k)
         {
 
-            int[] copy = new int[(int)Math.Pow((2 * a) + 1, 2)];
-            int ci = 0;
+            int x1 = jj - a;
+            int x2 = jj + a;
+            int y1 = ii - a;
+            int y2 = ii + a;
+            int S1 = 0;
+            int S2 = 0;
+            int S3 = 0;
+            int S4 = 0;
 
-            for (int i = ii - a; i < ii + a; i++)
-            {
-                for (int j = jj - a; j < jj + a; j++)
-                {
-                    if (i >= 0 && j >= 0 && i < pic.Height && j < pic.Width)
-                        copy[ci] = pic.Rmatrix[j, i];
-                    else
-                        copy[ci] = -1;
-                    ci++;
-                }
+            if (x2 < pic.Width && y2 < pic.Height)
+                S1 = pic.RmatrixSum[x2, y2];
+            if (x1 - 1 >= 0 && y1 - 1 >= 0)
+                S2 = pic.RmatrixSum[x1 - 1, y1 - 1];
+            if (x1 - 1 >= 0 && y2 < pic.Height)
+                S3 = pic.RmatrixSum[x1 - 1, y2];
+            if (x2 < pic.Width && y1 - 1 >= 0)
+                S4 = pic.RmatrixSum[x2, y1 - 1];
 
-            }
-            int Mx = 0;
-            int Mx2 = 0;
-            int iii = copy.Count();
-            for (int i = 0; i < copy.Count(); i++)
-            {
-                if (copy[i] != -1)
-                {
-                    Mx += copy[i];
-                    Mx2 += copy[i] * copy[i];
-                }
-                else
-                    iii--;
-            }
-            Mx /= iii;
-            Mx2 /= iii;
-            int R = 128;
-            double D = Mx2 - Math.Pow(Mx, 2);
+            int SS1 = 0;
+            int SS2 = 0;
+            int SS3 = 0;
+            int SS4 = 0;
+            if (x2 < pic.Width && y2 < pic.Height)
+                SS1 = pic.RmatrixMulti[x2, y2];
+            if (x1 - 1 >= 0 && y1 - 1 >= 0)
+                SS2 = pic.RmatrixMulti[x1 - 1, y1 - 1];
+            if (x1 - 1 >= 0 && y2 < pic.Height)
+                SS3 = pic.RmatrixMulti[x1 - 1, y2];
+            if (x2 < pic.Width && y1 - 1 >= 0)
+                SS4 = pic.RmatrixMulti[x2, y1 - 1];
+
+            var Mx = S1 + S2 - S3 - S4;
+            var Mx2 = SS1 + SS2 - SS3 - SS4;
+            int Size = (int)Math.Pow((2 * a) + 1, 2);
+            Mx /= Size;
+            Mx2 /= Size;
+            double D = Mx2 - (Mx * Mx);
             var sigma = Math.Sqrt(D);
+            int R = 128;
             var t = Mx*(1 + k*((sigma/R)-1));
             return t;
         }
         static public double ConvertMatrixVylf(ObjectAPI pic, int a, int ii, int jj, double k,int m, double R)
         {
 
-            int[] copy = new int[(int)Math.Pow((2 * a) + 1, 2)];
-            int ci = 0;
+            int x1 = jj - a;
+            int x2 = jj + a;
+            int y1 = ii - a;
+            int y2 = ii + a;
+            int S1 = 0;
+            int S2 = 0;
+            int S3 = 0;
+            int S4 = 0;
 
-            for (int i = ii - a; i < ii + a; i++)
-            {
-                for (int j = jj - a; j < jj + a; j++)
-                {
-                    if (i >= 0 && j >= 0 && i < pic.Height && j < pic.Width)
-                        copy[ci] = pic.Rmatrix[j, i];
-                    else
-                        copy[ci] = -1;
-                    ci++;
-                }
+            if (x2 < pic.Width && y2 < pic.Height)
+                S1 = pic.RmatrixSum[x2, y2];
+            if (x1 - 1 >= 0 && y1 - 1 >= 0)
+                S2 = pic.RmatrixSum[x1 - 1, y1 - 1];
+            if (x1 - 1 >= 0 && y2 < pic.Height)
+                S3 = pic.RmatrixSum[x1 - 1, y2];
+            if (x2 < pic.Width && y1 - 1 >= 0)
+                S4 = pic.RmatrixSum[x2, y1 - 1];
 
-            }
-            int Mx = 0;
-            int Mx2 = 0;
-            int iii = copy.Count();
-            for (int i = 0; i < copy.Count(); i++)
-            {
-                if (copy[i] != -1)
-                {
-                    Mx += copy[i];
-                    Mx2 += copy[i] * copy[i];
-                    
-                }
-                else
-                    iii--;
-            }
-            Mx /= iii;
-            Mx2 /= iii;
-            
-            double D = Mx2 - Math.Pow(Mx, 2);
+            int SS1 = 0;
+            int SS2 = 0;
+            int SS3 = 0;
+            int SS4 = 0;
+            if (x2 < pic.Width && y2 < pic.Height)
+                SS1 = pic.RmatrixMulti[x2, y2];
+            if (x1 - 1 >= 0 && y1 - 1 >= 0)
+                SS2 = pic.RmatrixMulti[x1 - 1, y1 - 1];
+            if (x1 - 1 >= 0 && y2 < pic.Height)
+                SS3 = pic.RmatrixMulti[x1 - 1, y2];
+            if (x2 < pic.Width && y1 - 1 >= 0)
+                SS4 = pic.RmatrixMulti[x2, y1 - 1];
+
+            var Mx = S1 + S2 - S3 - S4;
+            var Mx2 = SS1 + SS2 - SS3 - SS4;
+            int Size = (int)Math.Pow((2 * a) + 1, 2);
+            Mx /= Size;
+            Mx2 /= Size;
+            double D = Mx2 - (Mx * Mx);
             var sigma = Math.Sqrt(D);
             var t = (1 - k) * Mx + k * m + k * (sigma / R) * (Mx - m);
             return t;
@@ -133,41 +182,45 @@ namespace Photoshop1
         static public double ConvertMatrixVylf2(ObjectAPI pic, int a, int ii, int jj)
         {
 
-            int[] copy = new int[(int)Math.Pow((2 * a) + 1, 2)];
-            int ci = 0;
+            int x1 = jj - a;
+            int x2 = jj + a;
+            int y1 = ii - a;
+            int y2 = ii + a;
+            int S1 = 0;
+            int S2 = 0;
+            int S3 = 0;
+            int S4 = 0;
 
-            for (int i = ii - a; i < ii + a; i++)
-            {
-                for (int j = jj - a; j < jj + a; j++)
-                {
-                    if (i >= 0 && j >= 0 && i < pic.Height && j < pic.Width)
-                        copy[ci] = pic.Rmatrix[j, i];
-                    else
-                        copy[ci] = -1;
-                    ci++;
-                }
+            if (x2 < pic.Width && y2 < pic.Height)
+                S1 = pic.RmatrixSum[x2, y2];
+            if (x1 - 1 >= 0 && y1 - 1 >= 0)
+                S2 = pic.RmatrixSum[x1 - 1, y1 - 1];
+            if (x1 - 1 >= 0 && y2 < pic.Height)
+                S3 = pic.RmatrixSum[x1 - 1, y2];
+            if (x2 < pic.Width && y1 - 1 >= 0)
+                S4 = pic.RmatrixSum[x2, y1 - 1];
 
-            }
-            int Mx = 0;
-            int Mx2 = 0;
-            int iii = copy.Count();
-            for (int i = 0; i < copy.Count(); i++)
-            {
-                if (copy[i] != -1)
-                {
-                    Mx += copy[i];
-                    Mx2 += copy[i] * copy[i];
+            int SS1 = 0;
+            int SS2 = 0;
+            int SS3 = 0;
+            int SS4 = 0;
+            if (x2 < pic.Width && y2 < pic.Height)
+                SS1 = pic.RmatrixMulti[x2, y2];
+            if (x1 - 1 >= 0 && y1 - 1 >= 0)
+                SS2 = pic.RmatrixMulti[x1 - 1, y1 - 1];
+            if (x1 - 1 >= 0 && y2 < pic.Height)
+                SS3 = pic.RmatrixMulti[x1 - 1, y2];
+            if (x2 < pic.Width && y1 - 1 >= 0)
+                SS4 = pic.RmatrixMulti[x2, y1 - 1];
 
-                }
-                else
-                    iii--;
-            }
-            Mx /= iii;
-            Mx2 /= iii;
-
-            double D = Mx2 - Math.Pow(Mx, 2);
+            var Mx = S1 + S2 - S3 - S4;
+            var Mx2 = SS1 + SS2 - SS3 - SS4;
+            int Size = (int)Math.Pow((2 * a) + 1, 2);
+            Mx /= Size;
+            Mx2 /= Size;
+            double D = Mx2 - (Mx * Mx);
             var sigma = Math.Sqrt(D);
- 
+
             return sigma;
         }
         static public void CalcOtcu(double[] I,int t,int max,ref double deltaDef,ref int tDef)
@@ -334,6 +387,23 @@ namespace Photoshop1
                 }
             }
 
+            return pic2.Show();
+        }
+        static public Image Bredly(ObjectAPI picture, double k, int a)
+        {
+            ObjectAPI pic = picture.Clone() as ObjectAPI;
+            ObjectAPI pic2 = picture.Clone() as ObjectAPI;
+            for (int i = 0; i < pic.Height; i++)
+            {
+                for (int j = 0; j < pic.Width; j++)
+                {
+                    var t = ConvertMatrixBredly(pic, a, i, j);
+                    if (pic.Rmatrix[j, i]*t[1] < t[0]*(1-k))
+                        pic2.Rmatrix[j, i] = 0;
+                    if (pic.Rmatrix[j, i] * t[1] >= t[0] * (1 - k))
+                        pic2.Rmatrix[j, i] = 255;
+                }
+            }
             return pic2.Show();
         }
     }

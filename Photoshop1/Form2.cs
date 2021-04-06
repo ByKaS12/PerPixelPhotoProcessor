@@ -91,6 +91,19 @@ namespace Photoshop1
             st.Stop();
             time.Text = st.Elapsed.TotalSeconds.ToString() + "  " + "секунд(ы)";
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Stopwatch st = new Stopwatch();
+            st.Start();
+            if (k.Text != "" && a.Text != "")
+                pictureBox1.Image = BinMethods.Bredly(pic, Convert.ToDouble(k.Text), Convert.ToInt32(a.Text));
+            else
+                pictureBox1.Image = BinMethods.Bredly(pic, 0.15, 4);
+            st.Stop();
+            time.Text = st.Elapsed.TotalSeconds.ToString() + "  " + "секунд(ы)";
+
+        }
     }
     }
 

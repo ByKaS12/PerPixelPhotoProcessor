@@ -265,7 +265,7 @@ namespace Photoshop1
                 tDef = t;
             }
         }
-        static public Image Gavr(ObjectAPI picture)
+        static public Image Gavr(ObjectAPI picture, ref Stopwatch st2)
         {
             ObjectAPI pic = new ObjectAPI();
             pic = picture.Clone() as ObjectAPI;
@@ -291,9 +291,10 @@ namespace Photoshop1
                         pic.Rmatrix[j, i] = 255;
                 }
             }
+            st2.Stop();
             return pic.Show();
         }
-        static public Image Otcu(ObjectAPI picture)
+        static public Image Otcu(ObjectAPI picture, ref Stopwatch st2)
         {
             ObjectAPI pic = new ObjectAPI();
             pic = picture.Clone() as ObjectAPI;
@@ -331,10 +332,10 @@ namespace Photoshop1
                         pic.Rmatrix[j, i] = 255;
                 }
             }
-            
+            st2.Stop();
             return pic.Show();
         }
-        static public Image Niblek(ObjectAPI picture,double k,int a)
+        static public Image Niblek(ObjectAPI picture,double k,int a, ref Stopwatch st2)
         {
             ObjectAPI pic = new ObjectAPI();
             pic = picture.Clone() as ObjectAPI;
@@ -351,10 +352,10 @@ namespace Photoshop1
                         pic2.Rmatrix[j, i] = 255;
                 }
             }
-            
+            st2.Stop();
             return pic2.Show();
         }
-        static public Image Sayvol(ObjectAPI picture, double k, int a)
+        static public Image Sayvol(ObjectAPI picture, double k, int a, ref Stopwatch st2)
         {
             
             ObjectAPI pic = picture.Clone() as ObjectAPI;
@@ -370,10 +371,10 @@ namespace Photoshop1
                         pic2.Rmatrix[j, i] = 255;
                 }
             }
-
+            st2.Stop();
             return pic2.Show();
         }
-        static public Image Vylf(ObjectAPI picture, double k, int a)
+        static public Image Vylf(ObjectAPI picture, double k, int a, ref Stopwatch st2)
         {
             ObjectAPI pic = picture.Clone() as ObjectAPI;
             ObjectAPI pic2 = picture.Clone() as ObjectAPI;
@@ -398,7 +399,7 @@ namespace Photoshop1
                         pic2.Rmatrix[j, i] = 255;
                 }
             }
-
+            st2.Stop();
             return pic2.Show();
         }
         static public Image Bredly(ObjectAPI picture, double k, int a,ref  Stopwatch st2)

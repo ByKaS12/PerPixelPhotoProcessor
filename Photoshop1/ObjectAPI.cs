@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 
 namespace Photoshop1
 {
+   public struct  RGB_Gist
+    {
+        public int[] R;
+        public int[] G;
+        public int[] B;
+    }
    public class ObjectAPI: ICloneable
     {
         public string FileName { get; set; }
@@ -18,6 +24,8 @@ namespace Photoshop1
         public byte MinPix;
         public byte MaxPix;
         public int[,] RmatrixMulti;
+        public RGB_Gist GistRGB;
+        public int[] GistI;
         public ObjectAPI(string filename)
         {
             FileName = filename;
@@ -28,6 +36,10 @@ namespace Photoshop1
             Rmatrix = new byte[Width, Height];
             RmatrixSum = new int[Width, Height];
             RmatrixMulti = new int[Width, Height];
+            GistI = new int[256];
+            GistRGB.R = new int[256];
+            GistRGB.G = new int[256];
+            GistRGB.B = new int[256];
             MaxPix = 0;
             MinPix = 0;
             int[,] sum = new int[Width, Height];
@@ -47,7 +59,11 @@ namespace Photoshop1
                         MaxPix = (byte)Rmatrix[j, i];
                     if (MinPix > Rmatrix[j, i])
                         MinPix = (byte)Rmatrix[j, i];
-                    
+                    ++GistI[Rmatrix[j, i]];
+                    ++GistRGB.R[pix.R];
+                    ++GistRGB.G[pix.G];
+                    ++GistRGB.B[pix.B];
+
                     if (j - 1 >= 0)
                     {
                         sum[j, i] = sum[j - 1, i] + Rmatrix[j, i];
@@ -105,6 +121,95 @@ namespace Photoshop1
             return pic;
 
         }
+        public Image ShowGist(int flag)
+        {
+           
+
+            if(flag == 0)
+            {
+                Bitmap pic = new Bitmap(Width, Height);
+                int max = GistRGB.R.Max();
+                double point = (double)max / Height;
+                for (int i = 0; i < Width - 3; ++i)
+                {
+                    for (int j = Height - 1; j > Height - GistRGB.R[i / 3] / point; --j)
+                    {
+                        pic.SetPixel(i, j, Color.Red);
+                    }
+                   
+                }
+
+                    return pic;
+            }
+            if (flag == 1)
+            {
+                Bitmap pic = new Bitmap(Width, Height);
+                for (int i = 0; i < pic.Height; i++)
+                {
+                    for (int j = 0; j < pic.Width; j++)
+                    {
+
+                        Color pix = Color.FromArgb(Rmatrix[j, i], Rmatrix[j, i], Rmatrix[j, i]);
+                        pic.SetPixel(j, i, pix);
+
+                    }
+
+                }
+                return pic;
+            }
+            if (flag == 2)
+            {
+                Bitmap pic = new Bitmap(Width, Height);
+                for (int i = 0; i < pic.Height; i++)
+                {
+                    for (int j = 0; j < pic.Width; j++)
+                    {
+
+                        Color pix = Color.FromArgb(Rmatrix[j, i], Rmatrix[j, i], Rmatrix[j, i]);
+                        pic.SetPixel(j, i, pix);
+
+                    }
+
+                }
+                return pic;
+            }
+            if (flag == 3)
+            {
+                Bitmap pic = new Bitmap(Width, Height);
+                for (int i = 0; i < pic.Height; i++)
+                {
+                    for (int j = 0; j < pic.Width; j++)
+                    {
+
+                        Color pix = Color.FromArgb(Rmatrix[j, i], Rmatrix[j, i], Rmatrix[j, i]);
+                        pic.SetPixel(j, i, pix);
+
+                    }
+
+                }
+                return pic;
+            }
+
+            return null;
+        }
+        public Image ShowRGB()
+        {
+
+            Bitmap pic = new Bitmap(Width, Height);
+            for (int i = 0; i < pic.Height; i++)
+            {
+                for (int j = 0; j < pic.Width; j++)
+                {
+
+                    Color pix = Color.FromArgb((int)matrix[j, i].R, (int)matrix[j, i].G, (int)matrix[j, i].B);
+                    pic.SetPixel(j, i, pix);
+
+                }
+
+            }
+            return pic;
+
+        }
         public object Clone()
         {
             ObjectAPI aPI = new ObjectAPI();
@@ -117,6 +222,10 @@ namespace Photoshop1
             aPI.Rmatrix = Rmatrix.Clone() as byte[,];
             aPI.RmatrixSum = RmatrixSum.Clone() as int[,];
             aPI.RmatrixMulti = RmatrixMulti.Clone() as int[,];
+            aPI.GistI = GistI.Clone() as int[];
+            aPI.GistRGB.R = GistRGB.R.Clone() as int[];
+            aPI.GistRGB.G = GistRGB.G.Clone() as int[];
+            aPI.GistRGB.B = GistRGB.B.Clone() as int[];
             return aPI;
         }
     }

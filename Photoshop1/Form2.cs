@@ -29,21 +29,25 @@ namespace Photoshop1
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             Stopwatch st = new Stopwatch();
+            Stopwatch st2 = new Stopwatch();
             st.Start();
+            st2.Start();
             switch (comboBox1.SelectedItem)
             {
                 case "Критерий Гаврилова":
                     {
-                        pictureBox1.Image = BinMethods.Gavr(pic);
+                        pictureBox1.Image = BinMethods.Gavr(pic, ref st2);
                         st.Stop();
                         time.Text = st.Elapsed.TotalSeconds.ToString() + "  " + "секунд(ы)";
+                        InTime.Text = st2.Elapsed.TotalSeconds.ToString() + "  " + "секунд(ы)";
                         break;
                     }
                 case "Критерий Отсу":
                     {
-                        pictureBox1.Image = BinMethods.Otcu(pic);
+                        pictureBox1.Image = BinMethods.Otcu(pic, ref st2);
                         st.Stop();
                         time.Text = st.Elapsed.TotalSeconds.ToString() + "  " + "секунд(ы)";
+                        InTime.Text = st2.Elapsed.TotalSeconds.ToString() + "  " + "секунд(ы)";
                         break;
                     }
                 default:
@@ -59,37 +63,46 @@ namespace Photoshop1
         private void button2_Click(object sender, EventArgs e)
         {
             Stopwatch st = new Stopwatch();
+            Stopwatch st2 = new Stopwatch();
             st.Start();
-            if(k.Text!="" && a.Text!="")
-            pictureBox1.Image = BinMethods.Niblek(pic,Convert.ToDouble(k.Text), Convert.ToInt32(a.Text));
+            st2.Start();
+            if (k.Text!="" && a.Text!="")
+            pictureBox1.Image = BinMethods.Niblek(pic,Convert.ToDouble(k.Text), Convert.ToInt32(a.Text), ref st2);
             else
-                pictureBox1.Image = BinMethods.Niblek(pic, -0.2, 4);
+                pictureBox1.Image = BinMethods.Niblek(pic, -0.2, 4, ref st2);
             st.Stop();
             time.Text = st.Elapsed.TotalSeconds.ToString() +"  " + "секунд(ы)";
+            InTime.Text = st2.Elapsed.TotalSeconds.ToString() + "  " + "секунд(ы)";
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             Stopwatch st = new Stopwatch();
+            Stopwatch st2 = new Stopwatch();
             st.Start();
+            st2.Start();
             if (k.Text != "" && a.Text != "")
-                pictureBox1.Image = BinMethods.Sayvol(pic, Convert.ToDouble(k.Text), Convert.ToInt32(a.Text));
+                pictureBox1.Image = BinMethods.Sayvol(pic, Convert.ToDouble(k.Text), Convert.ToInt32(a.Text), ref st2);
             else
-                pictureBox1.Image = BinMethods.Sayvol(pic, 0.25, 4);
+                pictureBox1.Image = BinMethods.Sayvol(pic, 0.25, 4, ref st2);
             st.Stop();
             time.Text = st.Elapsed.TotalSeconds.ToString() + "  " + "секунд(ы)";
+            InTime.Text = st2.Elapsed.TotalSeconds.ToString() + "  " + "секунд(ы)";
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             Stopwatch st = new Stopwatch();
+            Stopwatch st2 = new Stopwatch();
             st.Start();
+            st2.Start();
             if (k.Text != "" && a.Text != "")
-                pictureBox1.Image = BinMethods.Vylf(pic, Convert.ToDouble(k.Text), Convert.ToInt32(a.Text));
+                pictureBox1.Image = BinMethods.Vylf(pic, Convert.ToDouble(k.Text), Convert.ToInt32(a.Text), ref st2);
             else
-                pictureBox1.Image = BinMethods.Vylf(pic, 0.5, 4);
+                pictureBox1.Image = BinMethods.Vylf(pic, 0.5, 4, ref st2);
             st.Stop();
             time.Text = st.Elapsed.TotalSeconds.ToString() + "  " + "секунд(ы)";
+            InTime.Text = st2.Elapsed.TotalSeconds.ToString() + "  " + "секунд(ы)";
         }
 
         private void button5_Click(object sender, EventArgs e)

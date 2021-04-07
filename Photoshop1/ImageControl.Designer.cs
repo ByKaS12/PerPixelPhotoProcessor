@@ -119,6 +119,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ImageControl";
             this.Size = new System.Drawing.Size(210, 279);
+            this.Load += new System.EventHandler(this.ImageControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);

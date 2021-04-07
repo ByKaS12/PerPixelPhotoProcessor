@@ -43,6 +43,9 @@ namespace Photoshop1
             this.button5 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.time = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.InTime = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -163,7 +166,7 @@ namespace Photoshop1
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(654, 363);
+            this.label4.Location = new System.Drawing.Point(654, 354);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(105, 13);
             this.label4.TabIndex = 12;
@@ -172,17 +175,47 @@ namespace Photoshop1
             // time
             // 
             this.time.AutoSize = true;
-            this.time.Location = new System.Drawing.Point(654, 386);
+            this.time.Location = new System.Drawing.Point(654, 376);
             this.time.Name = "time";
             this.time.Size = new System.Drawing.Size(13, 13);
             this.time.TabIndex = 13;
             this.time.Text = "0";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(658, 394);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(42, 13);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "InTime:";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(707, 394);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(0, 13);
+            this.label6.TabIndex = 15;
+            // 
+            // InTime
+            // 
+            this.InTime.AutoSize = true;
+            this.InTime.Location = new System.Drawing.Point(706, 394);
+            this.InTime.Name = "InTime";
+            this.InTime.Size = new System.Drawing.Size(13, 13);
+            this.InTime.TabIndex = 16;
+            this.InTime.Text = "0";
             // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.InTime);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.time);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.button5);
@@ -220,5 +253,8 @@ namespace Photoshop1
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Label label4;
         public System.Windows.Forms.Label time;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        public System.Windows.Forms.Label InTime;
     }
 }

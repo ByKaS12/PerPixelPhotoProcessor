@@ -95,13 +95,21 @@ namespace Photoshop1
         private void button5_Click(object sender, EventArgs e)
         {
             Stopwatch st = new Stopwatch();
+            Stopwatch st2 = new Stopwatch();
             st.Start();
+            st2.Start();
             if (k.Text != "" && a.Text != "")
-                pictureBox1.Image = BinMethods.Bredly(pic, Convert.ToDouble(k.Text), Convert.ToInt32(a.Text));
+                pictureBox1.Image = BinMethods.Bredly(pic, Convert.ToDouble(k.Text), Convert.ToInt32(a.Text),ref st2);
             else
-                pictureBox1.Image = BinMethods.Bredly(pic, 0.15, 4);
+                pictureBox1.Image = BinMethods.Bredly(pic, 0.15, 4,ref  st2);
             st.Stop();
             time.Text = st.Elapsed.TotalSeconds.ToString() + "  " + "секунд(ы)";
+            InTime.Text = st2.Elapsed.TotalSeconds.ToString() + "  " + "секунд(ы)";
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
 
         }
     }

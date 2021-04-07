@@ -166,5 +166,10 @@ namespace Photoshop1
             f2.ShowDialog();
 
         }
+
+        private void ImageControl_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

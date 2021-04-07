@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -20,26 +21,30 @@ namespace Photoshop1
             int S3 = 0;
             int S4 = 0;
 
-            if (x2 < pic.Width && y2 < pic.Height)
-                S1 = pic.RmatrixSum[x2, y2];
-            if (x1 - 1 >= 0 && y1 - 1 >= 0)
-                S2 = pic.RmatrixSum[x1 - 1, y1 - 1];
-            if (x1 - 1 >= 0 && y2 < pic.Height)
-                S3 = pic.RmatrixSum[x1 - 1, y2];
-            if (x2 < pic.Width && y1 - 1 >= 0)
-                S4 = pic.RmatrixSum[x2, y1 - 1];
+            if (x1 <= 0)
+                x1 = 1;
+            if (x2 >= pic.Width)
+                x2 = pic.Width - 1;
+            if (y1 <= 0)
+                y1 = 1;
+            if (y2 >= pic.Height)
+                y2 = pic.Height - 1;
+            S4 = pic.RmatrixSum[x2, y1 - 1];
+            S3 = pic.RmatrixSum[x1 - 1, y2];
+            S2 = pic.RmatrixSum[x1 - 1, y1 - 1];
+            S1 = pic.RmatrixSum[x2, y2];
 
             int SS1 = 0;
             int SS2 = 0;
             int SS3 = 0;
             int SS4 = 0;
-            if (x2 < pic.Width && y2 < pic.Height)
+
                 SS1 = pic.RmatrixMulti[x2, y2];
-            if (x1 - 1 >= 0 && y1 - 1 >= 0)
+
                 SS2 = pic.RmatrixMulti[x1 - 1, y1 - 1];
-            if (x1 - 1 >= 0 && y2 < pic.Height)
+
                 SS3 = pic.RmatrixMulti[x1 - 1, y2];
-            if (x2 < pic.Width && y1 - 1 >= 0)
+
                 SS4 = pic.RmatrixMulti[x2, y1 - 1];
 
             var Mx  = S1 + S2 - S3 - S4;
@@ -66,23 +71,18 @@ namespace Photoshop1
             int x2 = jj+a;
             int y1 = ii-a;
             int y2 =ii+a;
-            if (x2 < pic.Width && y2 < pic.Height)
-                S1 = pic.RmatrixSum[x2, y2];
-            if (x1 - 1 >= 0 && y1 - 1 >= 0)
-                S2 = pic.RmatrixSum[x1 - 1, y1 - 1];
-            if (x1 - 1 >= 0 && y2 < pic.Height)
-                S3 = pic.RmatrixSum[x1 - 1, y2];
-            if (x2 < pic.Width && y1 - 1 >= 0)
-               S4 = pic.RmatrixSum[x2, y1 - 1];
-            if (x1 < 0)
-                x1 = 0;
+            if (x1 <= 0)
+                x1 = 1;
             if (x2 >= pic.Width)
                 x2 = pic.Width - 1;
-            if (y1 < 0)
-                y1 = 0;
+            if (y1 <= 0)
+                y1 = 1;
             if (y2 >= pic.Height)
                 y2 = pic.Height - 1;
-
+            S4 = pic.RmatrixSum[x2, y1 - 1];
+            S3 = pic.RmatrixSum[x1 - 1, y2];
+            S2 = pic.RmatrixSum[x1 - 1, y1 - 1];
+            S1 = pic.RmatrixSum[x2, y2];
             var sum = S1 + S2 - S3 - S4;
 
             double[] result = new double[2];
@@ -102,27 +102,31 @@ namespace Photoshop1
             int S3 = 0;
             int S4 = 0;
 
-            if (x2 < pic.Width && y2 < pic.Height)
-                S1 = pic.RmatrixSum[x2, y2];
-            if (x1 - 1 >= 0 && y1 - 1 >= 0)
-                S2 = pic.RmatrixSum[x1 - 1, y1 - 1];
-            if (x1 - 1 >= 0 && y2 < pic.Height)
-                S3 = pic.RmatrixSum[x1 - 1, y2];
-            if (x2 < pic.Width && y1 - 1 >= 0)
-                S4 = pic.RmatrixSum[x2, y1 - 1];
+            if (x1 <= 0)
+                x1 = 1;
+            if (x2 >= pic.Width)
+                x2 = pic.Width - 1;
+            if (y1 <= 0)
+                y1 = 1;
+            if (y2 >= pic.Height)
+                y2 = pic.Height - 1;
+            S4 = pic.RmatrixSum[x2, y1 - 1];
+            S3 = pic.RmatrixSum[x1 - 1, y2];
+            S2 = pic.RmatrixSum[x1 - 1, y1 - 1];
+            S1 = pic.RmatrixSum[x2, y2];
 
             int SS1 = 0;
             int SS2 = 0;
             int SS3 = 0;
             int SS4 = 0;
-            if (x2 < pic.Width && y2 < pic.Height)
-                SS1 = pic.RmatrixMulti[x2, y2];
-            if (x1 - 1 >= 0 && y1 - 1 >= 0)
-                SS2 = pic.RmatrixMulti[x1 - 1, y1 - 1];
-            if (x1 - 1 >= 0 && y2 < pic.Height)
-                SS3 = pic.RmatrixMulti[x1 - 1, y2];
-            if (x2 < pic.Width && y1 - 1 >= 0)
-                SS4 = pic.RmatrixMulti[x2, y1 - 1];
+
+            SS1 = pic.RmatrixMulti[x2, y2];
+
+            SS2 = pic.RmatrixMulti[x1 - 1, y1 - 1];
+
+            SS3 = pic.RmatrixMulti[x1 - 1, y2];
+
+            SS4 = pic.RmatrixMulti[x2, y1 - 1];
 
             var Mx = S1 + S2 - S3 - S4;
             var Mx2 = SS1 + SS2 - SS3 - SS4;
@@ -147,27 +151,31 @@ namespace Photoshop1
             int S3 = 0;
             int S4 = 0;
 
-            if (x2 < pic.Width && y2 < pic.Height)
-                S1 = pic.RmatrixSum[x2, y2];
-            if (x1 - 1 >= 0 && y1 - 1 >= 0)
-                S2 = pic.RmatrixSum[x1 - 1, y1 - 1];
-            if (x1 - 1 >= 0 && y2 < pic.Height)
-                S3 = pic.RmatrixSum[x1 - 1, y2];
-            if (x2 < pic.Width && y1 - 1 >= 0)
-                S4 = pic.RmatrixSum[x2, y1 - 1];
+            if (x1 <= 0)
+                x1 = 1;
+            if (x2 >= pic.Width)
+                x2 = pic.Width - 1;
+            if (y1 <= 0)
+                y1 = 1;
+            if (y2 >= pic.Height)
+                y2 = pic.Height - 1;
+            S4 = pic.RmatrixSum[x2, y1 - 1];
+            S3 = pic.RmatrixSum[x1 - 1, y2];
+            S2 = pic.RmatrixSum[x1 - 1, y1 - 1];
+            S1 = pic.RmatrixSum[x2, y2];
 
             int SS1 = 0;
             int SS2 = 0;
             int SS3 = 0;
             int SS4 = 0;
-            if (x2 < pic.Width && y2 < pic.Height)
-                SS1 = pic.RmatrixMulti[x2, y2];
-            if (x1 - 1 >= 0 && y1 - 1 >= 0)
-                SS2 = pic.RmatrixMulti[x1 - 1, y1 - 1];
-            if (x1 - 1 >= 0 && y2 < pic.Height)
-                SS3 = pic.RmatrixMulti[x1 - 1, y2];
-            if (x2 < pic.Width && y1 - 1 >= 0)
-                SS4 = pic.RmatrixMulti[x2, y1 - 1];
+
+            SS1 = pic.RmatrixMulti[x2, y2];
+
+            SS2 = pic.RmatrixMulti[x1 - 1, y1 - 1];
+
+            SS3 = pic.RmatrixMulti[x1 - 1, y2];
+
+            SS4 = pic.RmatrixMulti[x2, y1 - 1];
 
             var Mx = S1 + S2 - S3 - S4;
             var Mx2 = SS1 + SS2 - SS3 - SS4;
@@ -191,27 +199,31 @@ namespace Photoshop1
             int S3 = 0;
             int S4 = 0;
 
-            if (x2 < pic.Width && y2 < pic.Height)
-                S1 = pic.RmatrixSum[x2, y2];
-            if (x1 - 1 >= 0 && y1 - 1 >= 0)
-                S2 = pic.RmatrixSum[x1 - 1, y1 - 1];
-            if (x1 - 1 >= 0 && y2 < pic.Height)
-                S3 = pic.RmatrixSum[x1 - 1, y2];
-            if (x2 < pic.Width && y1 - 1 >= 0)
-                S4 = pic.RmatrixSum[x2, y1 - 1];
+            if (x1 <= 0)
+                x1 = 1;
+            if (x2 >= pic.Width)
+                x2 = pic.Width - 1;
+            if (y1 <= 0)
+                y1 = 1;
+            if (y2 >= pic.Height)
+                y2 = pic.Height - 1;
+            S4 = pic.RmatrixSum[x2, y1 - 1];
+            S3 = pic.RmatrixSum[x1 - 1, y2];
+            S2 = pic.RmatrixSum[x1 - 1, y1 - 1];
+            S1 = pic.RmatrixSum[x2, y2];
 
             int SS1 = 0;
             int SS2 = 0;
             int SS3 = 0;
             int SS4 = 0;
-            if (x2 < pic.Width && y2 < pic.Height)
-                SS1 = pic.RmatrixMulti[x2, y2];
-            if (x1 - 1 >= 0 && y1 - 1 >= 0)
-                SS2 = pic.RmatrixMulti[x1 - 1, y1 - 1];
-            if (x1 - 1 >= 0 && y2 < pic.Height)
-                SS3 = pic.RmatrixMulti[x1 - 1, y2];
-            if (x2 < pic.Width && y1 - 1 >= 0)
-                SS4 = pic.RmatrixMulti[x2, y1 - 1];
+
+            SS1 = pic.RmatrixMulti[x2, y2];
+
+            SS2 = pic.RmatrixMulti[x1 - 1, y1 - 1];
+
+            SS3 = pic.RmatrixMulti[x1 - 1, y2];
+
+            SS4 = pic.RmatrixMulti[x2, y1 - 1];
 
             var Mx = S1 + S2 - S3 - S4;
             var Mx2 = SS1 + SS2 - SS3 - SS4;
@@ -389,8 +401,9 @@ namespace Photoshop1
 
             return pic2.Show();
         }
-        static public Image Bredly(ObjectAPI picture, double k, int a)
+        static public Image Bredly(ObjectAPI picture, double k, int a,ref  Stopwatch st2)
         {
+
             ObjectAPI pic = picture.Clone() as ObjectAPI;
             ObjectAPI pic2 = picture.Clone() as ObjectAPI;
             for (int i = 0; i < pic.Height; i++)
@@ -404,6 +417,7 @@ namespace Photoshop1
                         pic2.Rmatrix[j, i] = 255;
                 }
             }
+            st2.Stop();
             return pic2.Show();
         }
     }

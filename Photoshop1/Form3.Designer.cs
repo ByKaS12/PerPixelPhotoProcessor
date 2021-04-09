@@ -37,19 +37,23 @@ namespace Photoshop1
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.MainPic = new System.Windows.Forms.PictureBox();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.GR = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.GG = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.GB = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.GI = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.MainChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.Lx = new System.Windows.Forms.Label();
+            this.Ly = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.MainPic)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GI)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MainChart)).BeginInit();
             this.SuspendLayout();
             // 
             // MainPic
@@ -60,14 +64,6 @@ namespace Photoshop1
             this.MainPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.MainPic.TabIndex = 4;
             this.MainPic.TabStop = false;
-            // 
-            // pictureBox6
-            // 
-            this.pictureBox6.Location = new System.Drawing.Point(12, 39);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(386, 293);
-            this.pictureBox6.TabIndex = 5;
-            this.pictureBox6.TabStop = false;
             // 
             // button1
             // 
@@ -155,38 +151,80 @@ namespace Photoshop1
             this.GI.TabIndex = 10;
             this.GI.Text = "chart4";
             // 
+            // MainChart
+            // 
+            chartArea5.AxisX.Maximum = 255D;
+            chartArea5.AxisX.Minimum = 0D;
+            chartArea5.AxisY.Maximum = 255D;
+            chartArea5.AxisY.Minimum = 0D;
+            chartArea5.Name = "Func";
+            this.MainChart.ChartAreas.Add(chartArea5);
+            this.MainChart.Location = new System.Drawing.Point(12, 39);
+            this.MainChart.Name = "MainChart";
+            series5.ChartArea = "Func";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series5.Name = "Func";
+            this.MainChart.Series.Add(series5);
+            this.MainChart.Size = new System.Drawing.Size(386, 293);
+            this.MainChart.TabIndex = 11;
+            this.MainChart.Text = "MainFunc";
+            this.MainChart.Click += new System.EventHandler(this.MainChart_Click);
+            // 
+            // Lx
+            // 
+            this.Lx.AutoSize = true;
+            this.Lx.Location = new System.Drawing.Point(479, 20);
+            this.Lx.Name = "Lx";
+            this.Lx.Size = new System.Drawing.Size(18, 13);
+            this.Lx.TabIndex = 12;
+            this.Lx.Text = "x=";
+            // 
+            // Ly
+            // 
+            this.Ly.AutoSize = true;
+            this.Ly.Location = new System.Drawing.Point(658, 23);
+            this.Ly.Name = "Ly";
+            this.Ly.Size = new System.Drawing.Size(18, 13);
+            this.Ly.TabIndex = 13;
+            this.Ly.Text = "y=";
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.Ly);
+            this.Controls.Add(this.Lx);
+            this.Controls.Add(this.MainChart);
             this.Controls.Add(this.GI);
             this.Controls.Add(this.GB);
             this.Controls.Add(this.GG);
             this.Controls.Add(this.GR);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.pictureBox6);
             this.Controls.Add(this.MainPic);
             this.Name = "Form3";
             this.Text = "Form3";
             this.Load += new System.EventHandler(this.Form3_Load);
             ((System.ComponentModel.ISupportInitialize)(this.MainPic)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GI)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MainChart)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.Button button1;
         public System.Windows.Forms.PictureBox MainPic;
         public System.Windows.Forms.DataVisualization.Charting.Chart GR;
         public System.Windows.Forms.DataVisualization.Charting.Chart GG;
         public System.Windows.Forms.DataVisualization.Charting.Chart GB;
         public System.Windows.Forms.DataVisualization.Charting.Chart GI;
+        public System.Windows.Forms.DataVisualization.Charting.Chart MainChart;
+        public System.Windows.Forms.Label Lx;
+        public System.Windows.Forms.Label Ly;
     }
 }

@@ -286,13 +286,21 @@ namespace Photoshop1
                 for (int j = 0; j < pic.Width; j++)
                 {
                     if(pic.Rmatrix[j, i] <= t)
+                    {
                         pic.Rmatrix[j, i] = 0;
+                        
+                    }
+                        
                     if (pic.Rmatrix[j, i] > t)
+                    {
                         pic.Rmatrix[j, i] = 255;
+                        
+                    }
+                        
                 }
             }
             st2.Stop();
-            return pic.Show();
+            return pic.Show() ;
         }
         static public Image Otcu(ObjectAPI picture, ref Stopwatch st2)
         {

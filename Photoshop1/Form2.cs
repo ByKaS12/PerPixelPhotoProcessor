@@ -16,9 +16,12 @@ namespace Photoshop1
         public Form2()
         {
             InitializeComponent();
+            
+            
         }
         public ObjectAPI pic;
         public Form1 f1;
+        
         private void button1_Click(object sender, EventArgs e)
         {
             Form2.ActiveForm.Hide();

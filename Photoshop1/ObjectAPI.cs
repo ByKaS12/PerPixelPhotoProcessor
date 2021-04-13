@@ -259,6 +259,45 @@ namespace Photoshop1
 
 
         }
+        public void loadGist(Chart chart1, string flag)
+        {
+            
+
+            if (flag == "GR")
+            {
+                int max = GistRGB.R.Max();
+                for (int i = 0; i < 256; i++)
+                {
+                    chart1.Series["GR"].Points.AddXY(i, GistRGB.R[i]);
+                }
+            }
+            if (flag == "GG")
+            {
+                int max = GistRGB.G.Max();
+                for (int i = 0; i < 256; i++)
+                {
+                    chart1.Series["GG"].Points.AddXY(i, GistRGB.G[i]);
+                }
+            }
+            if (flag == "GB")
+            {
+                int max = GistRGB.B.Max();
+                for (int i = 0; i < 256; i++)
+                {
+                    chart1.Series["GB"].Points.AddXY(i, GistRGB.B[i]);
+                }
+            }
+            if (flag == "GI")
+            {
+                int max = GistI.Max();
+                for (int i = 0; i < 256; i++)
+                {
+                    chart1.Series["GI"].Points.AddXY(i, GistI[i]);
+                }
+            }
+
+           
+        }
         public object Clone()
         {
             ObjectAPI aPI = new ObjectAPI();

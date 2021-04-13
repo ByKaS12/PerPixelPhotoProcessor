@@ -79,13 +79,16 @@ namespace Photoshop1
                 MainChart.Series[str].Points.Add(dp);
                 MainChart.Series[str].Sort(PointSortOrder.Ascending);
                 ObjectAPI pic2 = pic.Clone() as ObjectAPI;
-                pic2.ChangeGist(MainChart, str);
+                //pic2.ChangeGist(MainChart,str);
                 Gist.Series[str2].Points.Clear();
-                Gist = Curve.loadGist(Gist, pic2, str2);
+                
                 if (flag == false)
-                    MainPic.Image = pic2.ShowRGB();
+                    Parallel.Invoke(() => Gist = Curve.loadGist(Gist, pic2, str2),() => pic2.ChangeGist(MainChart, str), () => MainPic.Image = pic2.ShowRGB());
+                //MainPic.Image = pic2.ShowRGB();
                 else
-                    MainPic.Image = pic2.Show();
+                    Parallel.Invoke(() => Gist = Curve.loadGist(Gist, pic2, str2), () => pic2.ChangeGist(MainChart, str), () => MainPic.Image = pic2.Show());
+                //MainPic.Image = pic2.Show();
+                //Gist = Curve.loadGist(Gist, pic2, str2);
                 MainPic.Refresh();
 
 
@@ -123,14 +126,17 @@ namespace Photoshop1
                     curPoint.YValues[0] = dy;
                 }
                 ObjectAPI pic2 = pic.Clone() as ObjectAPI;
-                pic2.ChangeGist(MainChart,str);
+                //pic2.ChangeGist(MainChart,str);
                 Gist.Series[str2].Points.Clear();
-                Gist = Curve.loadGist(Gist, pic2, str2);
-                if(flag==false)
-                MainPic.Image = pic2.ShowRGB();
+               
+                if (flag == false)
+                    Parallel.Invoke(() => Gist = Curve.loadGist(Gist, pic2, str2), () => pic2.ChangeGist(MainChart, str), () => MainPic.Image = pic2.ShowRGB());
+                //MainPic.Image = pic2.ShowRGB();
                 else
-                    MainPic.Image = pic2.Show();
+                    Parallel.Invoke(() => Gist = Curve.loadGist(Gist, pic2, str2),() => pic2.ChangeGist(MainChart, str), () => MainPic.Image = pic2.Show());
+                //MainPic.Image = pic2.Show();
                 MainPic.Refresh();
+                Gist = Curve.loadGist(Gist, pic2, str2);
             }
         }
         public DataPointCollection points;

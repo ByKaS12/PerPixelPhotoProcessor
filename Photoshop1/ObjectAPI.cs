@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Photoshop1
 {
@@ -26,10 +27,11 @@ namespace Photoshop1
         public int[,] RmatrixMulti;
         public RGB_Gist GistRGB;
         public int[] GistI;
+        public Bitmap pic;
         public ObjectAPI(string filename)
         {
             FileName = filename;
-            Bitmap pic = new Bitmap(FileName);
+            pic = new Bitmap(FileName);
             Width = pic.Width;
             Height = pic.Height;
             matrix = new RGB_Double[Width, Height];
@@ -121,77 +123,8 @@ namespace Photoshop1
             return pic;
 
         }
-        public Image ShowGist(int flag)
-        {
-           
-
-            if(flag == 0)
-            {
-                Bitmap pic = new Bitmap(Width, Height);
-                int max = GistRGB.R.Max();
-                double point = (double)max / Height;
-                for (int i = 0; i < Width - 3; ++i)
-                {
-                    for (int j = Height - 1; j > Height - GistRGB.R[i / 3] / point; --j)
-                    {
-                        pic.SetPixel(i, j, Color.Red);
-                    }
-                   
-                }
-
-                    return pic;
-            }
-            if (flag == 1)
-            {
-                Bitmap pic = new Bitmap(Width, Height);
-                for (int i = 0; i < pic.Height; i++)
-                {
-                    for (int j = 0; j < pic.Width; j++)
-                    {
-
-                        Color pix = Color.FromArgb(Rmatrix[j, i], Rmatrix[j, i], Rmatrix[j, i]);
-                        pic.SetPixel(j, i, pix);
-
-                    }
-
-                }
-                return pic;
-            }
-            if (flag == 2)
-            {
-                Bitmap pic = new Bitmap(Width, Height);
-                for (int i = 0; i < pic.Height; i++)
-                {
-                    for (int j = 0; j < pic.Width; j++)
-                    {
-
-                        Color pix = Color.FromArgb(Rmatrix[j, i], Rmatrix[j, i], Rmatrix[j, i]);
-                        pic.SetPixel(j, i, pix);
-
-                    }
-
-                }
-                return pic;
-            }
-            if (flag == 3)
-            {
-                Bitmap pic = new Bitmap(Width, Height);
-                for (int i = 0; i < pic.Height; i++)
-                {
-                    for (int j = 0; j < pic.Width; j++)
-                    {
-
-                        Color pix = Color.FromArgb(Rmatrix[j, i], Rmatrix[j, i], Rmatrix[j, i]);
-                        pic.SetPixel(j, i, pix);
-
-                    }
-
-                }
-                return pic;
-            }
-
-            return null;
-        }
+        
+       
         public Image ShowRGB()
         {
 
@@ -208,6 +141,122 @@ namespace Photoshop1
 
             }
             return pic;
+
+        }
+        public void ChangeGist(Chart MainChart,string str)
+        {
+            var mass = MainChart.Series[str].Points;
+            var m = mass.ToArray();
+            double[] ChartX = new double[m.Count()];
+            double[] ChartY = new double[m.Count()];
+            for (int i = 0; i < m.Count(); i++)
+            {
+                ChartX[i] = m[i].XValue;
+                ChartY[i] = m[i].YValues[0];
+
+            }
+            CubicSpline spline = new CubicSpline();
+            spline.BuildSpline(ChartX, ChartY, m.Count());
+            if(str == "Func")
+            {
+                var mass1 = MainChart.Series["RedStream"].Points;
+                var mass2 = MainChart.Series["GreenStream"].Points;
+                var mass3 = MainChart.Series["BlueStream"].Points;
+                var m1 = mass.ToArray();
+                var m2 = mass.ToArray();
+                var m3 = mass.ToArray();
+                double[] ChartX1 = new double[m1.Count()];
+                double[] ChartY1 = new double[m1.Count()];
+                double[] ChartX2 = new double[m2.Count()];
+                double[] ChartY2 = new double[m2.Count()];
+                double[] ChartX3 = new double[m3.Count()];
+                double[] ChartY3 = new double[m3.Count()];
+                for (int i = 0; i < m.Count(); i++)
+                {
+                    ChartX1[i] = m1[i].XValue;
+                    ChartY1[i] = m1[i].YValues[0];
+                    ChartX2[i] = m2[i].XValue;
+                    ChartY2[i] = m2[i].YValues[0];
+                    ChartX3[i] = m3[i].XValue;
+                    ChartY3[i] = m3[i].YValues[0];
+
+                }
+                CubicSpline spline1 = new CubicSpline();
+                CubicSpline spline2 = new CubicSpline();
+                CubicSpline spline3 = new CubicSpline();
+                GistI = new int[256];
+                GistRGB.R = new int[256];
+                GistRGB.G = new int[256];
+                GistRGB.B = new int[256];
+                spline1.BuildSpline(ChartX1, ChartY1, m1.Count());
+                spline2.BuildSpline(ChartX2, ChartY2, m2.Count());
+                spline3.BuildSpline(ChartX3, ChartY3, m3.Count());
+                for (int i = 0; i < Height; i++)
+                {
+
+                    for (int j = 0; j < Width; j++)
+                    {
+                        Rmatrix[j, i] = (byte)spline.Interpolate(Rmatrix[j, i]);
+                        matrix[j, i].R = (byte)spline1.Interpolate(matrix[j, i].R);
+                        matrix[j, i].G = (byte)spline2.Interpolate(matrix[j, i].G);
+                        matrix[j, i].B = (byte)spline3.Interpolate(matrix[j, i].B);
+                        ++GistI[Rmatrix[j, i]];
+                        ++GistRGB.R[(int)matrix[j, i].R];
+                        ++GistRGB.G[(int)matrix[j, i].G];
+                        ++GistRGB.B[(int)matrix[j, i].B];
+
+
+                    }
+                }
+            }
+            if (str == "RedStream")
+            {
+                GistRGB.R = new int[256];
+                for (int i = 0; i < Height; i++)
+                {
+
+                    for (int j = 0; j < Width; j++)
+                    {
+                        matrix[j, i].R = (byte)spline.Interpolate(matrix[j,i].R); ;
+                        ++GistRGB.R[(int)matrix[j, i].R];
+
+
+                    }
+                }
+            }
+            if (str == "GreenStream")
+            {
+                GistRGB.G = new int[256];
+                for (int i = 0; i < Height; i++)
+                {
+
+                    for (int j = 0; j < Width; j++)
+                    {
+                        matrix[j, i].G = (byte)spline.Interpolate(matrix[j, i].G); ;
+                        ++GistRGB.G[(int)matrix[j, i].G];
+
+
+                    }
+                }
+            }
+            if (str == "BlueStream")
+            {
+                GistRGB.B = new int[256];
+                for (int i = 0; i < Height; i++)
+                {
+
+                    for (int j = 0; j < Width; j++)
+                    {
+                        matrix[j, i].B = (byte)spline.Interpolate(matrix[j, i].B); ;
+                        ++GistRGB.B[(int)matrix[j, i].B];
+
+
+                    }
+                }
+            }
+
+
+
 
         }
         public object Clone()

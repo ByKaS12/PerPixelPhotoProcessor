@@ -172,57 +172,7 @@ namespace Photoshop1
         {
 
         }
-        public Chart loadGist( Chart chart,ObjectAPI pic,int flag)
-        {
-            Chart chart1 = chart;
-
-            if (flag == 0)
-            {
-                int max = pic.GistRGB.R.Max();
-                //  chart1.ChartAreas["GR"].AxisY.Maximum = max;
-                chart1.ChartAreas["GR"].AxisX.Enabled = AxisEnabled.False;
-                chart1.ChartAreas["GR"].AxisY.Enabled = AxisEnabled.False;
-                for (int i = 0; i < 256; i++)
-                {
-                    chart1.Series["GR"].Points.AddXY(i, pic.GistRGB.R[i]);
-                }
-            }
-            if (flag == 1)
-            {
-                int max = pic.GistRGB.G.Max();
-                // chart1.ChartAreas["GG"].AxisY.Maximum = max;
-                chart1.ChartAreas["GG"].AxisX.Enabled = AxisEnabled.False;
-                chart1.ChartAreas["GG"].AxisY.Enabled = AxisEnabled.False;
-                for (int i = 0; i < 256; i++)
-                {
-                    chart1.Series["GG"].Points.AddXY(i, pic.GistRGB.G[i]);
-                }
-            }
-            if (flag == 2)
-            {
-                int max = pic.GistRGB.B.Max();
-                //  chart1.ChartAreas["GB"].AxisY.Maximum = max;
-                chart1.ChartAreas["GB"].AxisX.Enabled = AxisEnabled.False;
-                chart1.ChartAreas["GB"].AxisY.Enabled = AxisEnabled.False;
-                for (int i = 0; i < 256; i++)
-                {
-                    chart1.Series["GB"].Points.AddXY(i, pic.GistRGB.B[i]);
-                }
-            }
-            if (flag == 3)
-            {
-                int max = pic.GistI.Max();
-                //  chart1.ChartAreas["GI"].AxisY.Maximum = max;
-                chart1.ChartAreas["GI"].AxisX.Enabled = AxisEnabled.False;
-                chart1.ChartAreas["GI"].AxisY.Enabled = AxisEnabled.False;
-                for (int i = 0; i < 256; i++)
-                {
-                    chart1.Series["GI"].Points.AddXY(i, pic.GistI[i]);
-                }
-            }
-
-            return chart1;
-        }
+       
         private void button3_Click(object sender, EventArgs e)
         {
             int count = this.ControlIndex;
@@ -231,12 +181,7 @@ namespace Photoshop1
             Form.ActiveForm.Hide();
             f3.pic = Pictures[count];
             f3.MainPic.Image = f3.pic.ShowRGB();
-            f3.GR = loadGist(f3.GR,f3.pic,0);
-            f3.GG = loadGist(f3.GG,f3.pic,1);
-            f3.GB = loadGist(f3.GB,f3.pic,2);
-            f3.GI = loadGist(f3.GI, f3.pic,3);
- 
-            
+            f3.Gist = Curve.loadGist(f3.Gist,f3.pic,"GI");
             f3.ShowDialog();
         }
     }

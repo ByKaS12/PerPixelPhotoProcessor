@@ -69,8 +69,10 @@ namespace Photoshop1
             int a = Convert.ToInt32(MidA.Text);
             FilterPic.Image = Filter.MedianaFilter(pic, a, ref st2);
             st.Stop();
-            TimeMethod.Text = Convert.ToString(st2.ElapsedMilliseconds);
-            TimeOperation.Text = Convert.ToString(st.ElapsedMilliseconds);
+            TimeMethod.Text = Convert.ToString(st2.Elapsed.TotalSeconds);
+            TimeOperation.Text = Convert.ToString(st.Elapsed.TotalSeconds);
+            TimeMethod.Text += " Seconds";
+            TimeOperation.Text += " Seconds";
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -87,8 +89,10 @@ namespace Photoshop1
             st2.Start();
             FilterPic.Image = Filter.LinFilter(pic, r, Fill_Filter, ref st2);
             st.Stop();
-            TimeMethod.Text = Convert.ToString(st2.ElapsedMilliseconds);
-            TimeOperation.Text = Convert.ToString(st.ElapsedMilliseconds);
+            TimeMethod.Text = Convert.ToString(st2.Elapsed.TotalSeconds);
+            TimeOperation.Text = Convert.ToString(st.Elapsed.TotalSeconds);
+            TimeMethod.Text += " Seconds";
+            TimeOperation.Text += " Seconds";
         }
     }
 }

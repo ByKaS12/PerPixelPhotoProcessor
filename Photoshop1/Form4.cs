@@ -24,7 +24,8 @@ namespace Photoshop1
         {
 
         }
-
+        public double[,] Fill_Filter;
+        public int r;
         private void button2_Click(object sender, EventArgs e)
         {
             int a = Convert.ToInt32(LinA.Text);
@@ -75,6 +76,19 @@ namespace Photoshop1
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void LinButton_Click(object sender, EventArgs e)
+        {
+            //create filter Lin
+            Stopwatch st = new Stopwatch();
+            Stopwatch st2 = new Stopwatch();
+            st.Start();
+            st2.Start();
+            FilterPic.Image = Filter.LinFilter(pic, r, Fill_Filter, ref st2);
+            st.Stop();
+            TimeMethod.Text = Convert.ToString(st2.ElapsedMilliseconds);
+            TimeOperation.Text = Convert.ToString(st.ElapsedMilliseconds);
         }
     }
 }

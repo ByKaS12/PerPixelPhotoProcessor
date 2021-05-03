@@ -76,6 +76,7 @@ namespace Photoshop1
             this.Sigma.Name = "Sigma";
             this.Sigma.Size = new System.Drawing.Size(56, 20);
             this.Sigma.TabIndex = 4;
+            this.Sigma.Text = "1";
             // 
             // label1
             // 

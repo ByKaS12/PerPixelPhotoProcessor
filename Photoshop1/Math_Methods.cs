@@ -45,7 +45,7 @@ namespace Photoshop1
                 int jj = 0;
                 for (int j = -a; j <= a; ++j)
                 {
-                    double g = (1 / (2 * Math.PI * sigma * sigma)) * Math.Exp(-1 * (i * i + j * j) / (2 * sigma * sigma));
+                    double g = ((1 / (2 * Math.PI * sigma * sigma)) * Math.Exp(-1 * (i * i + j * j) / (2 * sigma * sigma)));
                     sum += g;
                     Gauss[ii, jj] = g;
                     jj++;

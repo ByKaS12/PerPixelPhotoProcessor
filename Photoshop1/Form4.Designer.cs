@@ -42,6 +42,7 @@ namespace Photoshop1
             this.label4 = new System.Windows.Forms.Label();
             this.TimeMethod = new System.Windows.Forms.Label();
             this.TimeOperation = new System.Windows.Forms.Label();
+            this.LinButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.FilterPic)).BeginInit();
             this.SuspendLayout();
             // 
@@ -130,7 +131,7 @@ namespace Photoshop1
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(654, 189);
+            this.label3.Location = new System.Drawing.Point(653, 215);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(80, 13);
             this.label3.TabIndex = 11;
@@ -140,7 +141,7 @@ namespace Photoshop1
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(656, 242);
+            this.label4.Location = new System.Drawing.Point(655, 268);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(91, 13);
             this.label4.TabIndex = 12;
@@ -149,26 +150,37 @@ namespace Photoshop1
             // TimeMethod
             // 
             this.TimeMethod.AutoSize = true;
-            this.TimeMethod.Location = new System.Drawing.Point(656, 215);
+            this.TimeMethod.Location = new System.Drawing.Point(655, 241);
             this.TimeMethod.Name = "TimeMethod";
-            this.TimeMethod.Size = new System.Drawing.Size(35, 13);
+            this.TimeMethod.Size = new System.Drawing.Size(13, 13);
             this.TimeMethod.TabIndex = 13;
-            this.TimeMethod.Text = "label5";
+            this.TimeMethod.Text = "0";
             // 
             // TimeOperation
             // 
             this.TimeOperation.AutoSize = true;
-            this.TimeOperation.Location = new System.Drawing.Point(656, 276);
+            this.TimeOperation.Location = new System.Drawing.Point(655, 302);
             this.TimeOperation.Name = "TimeOperation";
-            this.TimeOperation.Size = new System.Drawing.Size(35, 13);
+            this.TimeOperation.Size = new System.Drawing.Size(13, 13);
             this.TimeOperation.TabIndex = 14;
-            this.TimeOperation.Text = "label6";
+            this.TimeOperation.Text = "0";
+            // 
+            // LinButton
+            // 
+            this.LinButton.Location = new System.Drawing.Point(653, 177);
+            this.LinButton.Name = "LinButton";
+            this.LinButton.Size = new System.Drawing.Size(128, 23);
+            this.LinButton.TabIndex = 15;
+            this.LinButton.Text = "ЛОВИИ ЯДРО!";
+            this.LinButton.UseVisualStyleBackColor = true;
+            this.LinButton.Click += new System.EventHandler(this.LinButton_Click);
             // 
             // Form4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.LinButton);
             this.Controls.Add(this.TimeOperation);
             this.Controls.Add(this.TimeMethod);
             this.Controls.Add(this.label4);
@@ -206,5 +218,6 @@ namespace Photoshop1
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label TimeMethod;
         private System.Windows.Forms.Label TimeOperation;
+        private System.Windows.Forms.Button LinButton;
     }
 }

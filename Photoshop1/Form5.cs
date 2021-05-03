@@ -21,7 +21,7 @@ namespace Photoshop1
 
         }
 
-        double[,] matrix_Gayss;
+        public double[,] matrix_Gayss;
         private void CreateMatrix_Load(object sender, EventArgs e)
         {
 
@@ -38,7 +38,36 @@ namespace Photoshop1
 
         private void ReadyButton_Click(object sender, EventArgs e)
         {
-            //get Lin Filter
+            double[,] LinMatrix = new double[(2 * a) + 1, (2 * a) + 1];
+            //byte[] R = Filter.FilterArray(Filter.CreateMatrix(pic, a, i, j, 'R'), a);
+            //byte[] G = Filter.FilterArray(Filter.CreateMatrix(pic, a, i, j, 'G'), a);
+            //byte[] B = Filter.FilterArray(Filter.CreateMatrix(pic, a, i, j, 'B'), a);
+
+            //get Fill matrix LinFilter
+            int size = 2 * a + 1;
+            matrix_Gayss = new double[size, size];
+            
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    if (Matrix.Rows[i].Cells[j].Value.ToString().Contains('/') == false)
+                        matrix_Gayss[i, j] = Convert.ToDouble(Matrix.Rows[i].Cells[j].Value);
+                    else
+                    {
+                        string[] str = new string[2];
+                        str = Matrix.Rows[i].Cells[j].Value.ToString().Trim().Split('/');
+                        float x = Convert.ToSingle(str[0]);
+                        float y = Convert.ToSingle(str[1]);
+                        matrix_Gayss[i, j] = Convert.ToDouble(x/y);
+                    }
+                        
+                }
+                CreateMatrix.ActiveForm.Hide();
+                f4.Fill_Filter = matrix_Gayss;
+                f4.r = a;
+                f4.Show();
+            }
         }
        
         private void Gauss_Click(object sender, EventArgs e)

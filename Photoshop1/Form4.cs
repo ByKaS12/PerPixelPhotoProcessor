@@ -27,6 +27,12 @@ namespace Photoshop1
 
         private void button2_Click(object sender, EventArgs e)
         {
+            int a = Convert.ToInt32(LinA.Text);
+            CreateMatrix f5 = new CreateMatrix();
+            f5.f4 = (Form4)Form.ActiveForm;
+            Form.ActiveForm.Hide();
+            f5.a = a;
+            f5.ShowDialog();
 
         }
 

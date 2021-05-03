@@ -35,7 +35,25 @@ namespace Photoshop1
 
     static class Math_Methods
     {
-
+        public static double[,] GaussMatrix(int a, double sigma, ref double sum)
+        {
+            sum = 0;
+            double[,] Gauss = new double[(2 * a) + 1, (2 * a) + 1];
+            int ii = 0;
+            for (int i = -a; i <= a; ++i)
+            {
+                int jj = 0;
+                for (int j = -a; j <= a; ++j)
+                {
+                    double g = (1 / (2 * Math.PI * sigma * sigma)) * Math.Exp(-1 * (i * i + j * j) / (2 * sigma * sigma));
+                    sum += g;
+                    Gauss[ii, jj] = g;
+                    jj++;
+                }
+                ii++;
+            }
+            return Gauss;
+        }
         public static int QuickSelect_median(byte[] l, int pivot_fn = 0)
         {
             if (pivot_fn == 0)

@@ -184,5 +184,17 @@ namespace Photoshop1
             f3.Gist = Curve.loadGist(f3.Gist,f3.pic,"GI");
             f3.ShowDialog();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            int count = this.ControlIndex;
+            Form4 f4 = new Form4();
+            f4.f1 = (Form1)Form.ActiveForm;
+            Form.ActiveForm.Hide();
+            f4.pic = Pictures[count];
+            f4.FilterPic.Image = f4.pic.ShowRGB();
+            f4.ShowDialog();
+
+        }
     }
 }

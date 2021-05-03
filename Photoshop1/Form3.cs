@@ -56,6 +56,8 @@ namespace Photoshop1
             
 
         }
+
+
         public string str = "Func";
         public string str2 = "GI";
         public bool flag = false;
@@ -113,9 +115,16 @@ namespace Photoshop1
                 int X= e.X, Y = e.Y;
                 HitTestResult hit = MainChart.HitTest(e.X, e.Y);
                 if (hit.PointIndex > 0)
-                    curPoint = hit.Series.Points[hit.PointIndex]; 
+                    curPoint = hit.Series.Points[hit.PointIndex];
 
+                //if (curPoint != null)
+                //{
+                //    if (curPoint.XValue == 255 && curPoint.YValues[0] == 255) curPoint = null;
+                //    if (curPoint.XValue == 0 && curPoint.YValues[0] == 0) curPoint = null;
+                //    if (MainChart.Series[0].Points[MainChart.Series[0].Points.Count() - 1] == curPoint) curPoint = null;
+                //    if (MainChart.Series[0].Points[0] == curPoint) curPoint = null;
 
+                //}
                 if (curPoint != null)
                 {
                     Series s = hit.Series;
@@ -125,6 +134,8 @@ namespace Photoshop1
                     curPoint.XValue = dx;
                     curPoint.YValues[0] = dy;
                 }
+
+
                 ObjectAPI pic2 = pic.Clone() as ObjectAPI;
                 //pic2.ChangeGist(MainChart,str);
                 Gist.Series[str2].Points.Clear();

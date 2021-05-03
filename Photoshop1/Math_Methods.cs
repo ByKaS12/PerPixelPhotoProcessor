@@ -32,8 +32,39 @@ namespace Photoshop1
         public int B;
     }
 
+
     static class Math_Methods
     {
+
+        public static int QuickSelect_median(byte[] l, int pivot_fn = 0)
+        {
+            if (pivot_fn == 0)
+            {
+                pivot_fn = l[new Random().Next(l.Count())];
+            }
+
+            if (l.Count() % 2 == 1)
+                return QuickSelect(l, (l.Count() / 2), pivot_fn);
+            else
+                return (int)(0.5 * (QuickSelect(l, (l.Count() / 2) - 1, pivot_fn) + QuickSelect(l, (l.Count() / 2), pivot_fn)));
+        }
+        public static int QuickSelect(byte[] l, int k, int pivot_fn)
+        {
+            if (l.Count() == 1)
+                return l[0];
+            int pivot = l[new Random().Next(l.Count())];
+            var lows = l.Where(u => u < pivot).ToArray();
+            var highs = l.Where(u => u > pivot).ToArray();
+            var pivots = l.Where(u => u == pivot).ToArray();
+            if (k < lows.Count())
+                return QuickSelect(lows, k, pivot_fn);
+            else if (k < lows.Count() + pivots.Count())
+                return pivots[0];
+            else
+                return QuickSelect(highs, k - lows.Count() - pivots.Count(), pivot_fn);
+
+
+        }
         public static T Clamp<T>(T val, T min, T max) where T : IComparable<T>
         {
             if (val.CompareTo(min) < 0) return min;

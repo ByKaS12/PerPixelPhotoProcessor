@@ -99,7 +99,77 @@ namespace Photoshop1
             }
 
         }
-        
+        public ObjectAPI(Bitmap bitmap)
+        {
+            FileName = null;
+            pic = bitmap;
+            Width = pic.Width;
+            Height = pic.Height;
+            matrix = new RGB_Double[Width, Height];
+            Rmatrix = new byte[Width, Height];
+            RmatrixSum = new int[Width, Height];
+            RmatrixMulti = new int[Width, Height];
+            GistI = new int[256];
+            GistRGB.R = new int[256];
+            GistRGB.G = new int[256];
+            GistRGB.B = new int[256];
+            MaxPix = 0;
+            MinPix = 0;
+            int[,] sum = new int[Width, Height];
+            int[,] multi = new int[Width, Height];
+            for (int i = 0; i < pic.Height; i++)
+            {
+
+                for (int j = 0; j < pic.Width; j++)
+                {
+                    var pix = pic.GetPixel(j, i);
+
+                    matrix[j, i].R = pix.R;
+                    matrix[j, i].G = pix.G;
+                    matrix[j, i].B = pix.B;
+                    Rmatrix[j, i] = (byte)(int)((0.2125 * matrix[j, i].R + 0.7154 * matrix[j, i].G + 0.0721 * matrix[j, i].B));
+                    if (MaxPix < Rmatrix[j, i])
+                        MaxPix = (byte)Rmatrix[j, i];
+                    if (MinPix > Rmatrix[j, i])
+                        MinPix = (byte)Rmatrix[j, i];
+                    ++GistI[Rmatrix[j, i]];
+                    ++GistRGB.R[pix.R];
+                    ++GistRGB.G[pix.G];
+                    ++GistRGB.B[pix.B];
+
+                    if (j - 1 >= 0)
+                    {
+                        sum[j, i] = sum[j - 1, i] + Rmatrix[j, i];
+                        multi[j, i] = multi[j - 1, i] + Rmatrix[j, i] * Rmatrix[j, i];
+                    }
+
+                    else
+                    {
+                        sum[j, i] = Rmatrix[j, i];
+                        multi[j, i] = Rmatrix[j, i] * Rmatrix[j, i];
+                    }
+
+                    if (i - 1 >= 0)
+                    {
+                        RmatrixSum[j, i] = RmatrixSum[j, i - 1] + sum[j, i];
+                        RmatrixMulti[j, i] = RmatrixMulti[j, i - 1] + multi[j, i];
+                    }
+
+                    else
+                    {
+                        RmatrixSum[j, i] = sum[j, i];
+                        RmatrixMulti[j, i] = multi[j, i];
+                    }
+
+
+
+
+
+                }
+
+            }
+
+        }
         public ObjectAPI()
         {
 
@@ -140,6 +210,7 @@ namespace Photoshop1
                 }
 
             }
+            this.pic = pic;
             return pic;
 
         }
